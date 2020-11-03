@@ -1,5 +1,12 @@
-const Clase = artifacts.require("Clase");
+const ConvertLib = artifacts.require("ConvertLib");
+const MetaCoin = artifacts.require("MetaCoin");
+const MyERC20Token = artifacts.require("MyERC20Token");
+const MyERC721Token = artifacts.require("MyERC721Token");
 
 module.exports = function(deployer) {
-  deployer.deploy(Clase);
+  deployer.deploy(ConvertLib);
+  deployer.link(ConvertLib, MetaCoin);
+  deployer.deploy(MetaCoin);
+  deployer.deploy(MyERC20Token);
+  deployer.deploy(MyERC721Token);
 };
