@@ -4,12 +4,18 @@ pragma solidity >=0.4.25 <0.7.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MyERC721Token is ERC721, Ownable {
+contract Cajon is ERC721, Ownable {
 
-    struct MyTokenItem {
+    struct UnidadCajon {
         uint256 id;
-        string name;
+        string tipoContenido;
+        uint256 idProductor;
         bool exists;
+    }
+
+    struct puntoCadena{
+        uint256 idLector;
+        uint256 fecha;
     }
 
     mapping(uint256 => MyTokenItem) items;
@@ -18,10 +24,11 @@ contract MyERC721Token is ERC721, Ownable {
         
     }
 
-    function createToken(address to, uint256 tokenId, string memory name) public {
+    function createToken(address to, uint256 tokenId, string memory tipoContenido, uint256 idProductor) public {
         _mint(to, tokenId);
         items[tokenId].id = tokenId;
-        items[tokenId].name = name;
+        items[tokenId].tipoContenido = tipoContenido;
+        items[tokenId].idProductor = idProductor;
         items[tokenId].exists = true;
     }
 
