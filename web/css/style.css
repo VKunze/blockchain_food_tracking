@@ -26,7 +26,6 @@
 @import url(bootsnav.css);
 @import url(owl.carousel.min.css);
 @import url(jquery-ui.css);
-@import url(nice-select.css);
 @import url(baguetteBox.min.css);
 
 /*------------------------------------------------------------------
@@ -2253,10 +2252,6 @@ ul.cart-list>li.total>.btn:hover {
     -webkit-justify-content: space-between;
     justify-content: space-between;
     padding: 5px 0;
-}
-
-.nice-select.wide {
-    width: 75%;
 }
 
 .product-item-filter .toolbar-sorter-right span {
