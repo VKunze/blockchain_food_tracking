@@ -36,6 +36,20 @@
 </head>
 
 <body>
+    <script>
+        abi = require('Cajon.json').abi;
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            window.metaCoin = new window.web3.eth.Contract(abi, '0xb0CF2b2a1276Be0A29052DF027c9b0E3B2bB2C05');
+
+            window.metaCoin.events.Transfer({}, function(error, event) {
+                console.log(event);
+            });
+        }
+        
+    </script>
+    
     <!-- Start Main Top -->
     <header class="main-header">
         <!-- Start Navigation -->
