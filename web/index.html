@@ -44,13 +44,28 @@
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
-            window.metaCoin = new window.web3.eth.Contract(abi, '0xb0CF2b2a1276Be0A29052DF027c9b0E3B2bB2C05');
+            window.cajon = new window.web3.eth.Contract(abi, '0xDbd130C0010CB3948fc7e38Bbc0afE1d93a33cf8');
 
-            window.metaCoin.events.Transfer({}, function(error, event) {
+            window.cajon.events.Transfer({}, function(error, event) {
                 console.log(event);
             });
         }
 
+        async function obtenerCuentas() {
+            var cuentas = await window.web3.eth.getAccounts();
+            return cuentas; 
+        }
+
+        async function agregarProductor() {
+            console.log("EN NUESTRA FUNC!!!!")
+            address = await obtenerCuentas();
+            window.cajon.methods.addToWhitelistProductores(address[0]).send();
+        }
+
+        async function crearCajon() {
+            //window.cajon.methods.crearCajon(address addressProductor, uint256 tokenId, string memory tipoContenido, string memory nombreComercialProductor)
+            //console.log("ee")
+        }
     </script>
     
     <!-- Start Main Top -->
@@ -546,7 +561,7 @@
                                     <input class="" type="email" name="Email" placeholder="Email Address*" />
                                     <i class="fa fa-envelope"></i>
                                 </div>
-                                <button class="btn hvr-hover" type="submit">Submit</button>
+                                <button class="btn hvr-hover" type="submit" onclick="agregarProductor()">Submit</button>
                             </form>
                         </div>
                     </div>
