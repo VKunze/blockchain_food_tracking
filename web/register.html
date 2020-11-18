@@ -113,7 +113,25 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <select id="basic" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
+                                            <option data-display="Select">Rubro</option>
+                                            <option value="productores">Productor</option>
+                                            <option value="distribuidores">Distribuidor</option>
+                                            <option value="puntosVenta">Punto de venta</option>
+                                        </select>
+                                        <div class="overlay-arrow">&#9660;</div>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <input type="text" placeholder="RUT" id="rut" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Address" id="address" class="form-control" name="name" required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -364,7 +382,7 @@
     <script src="js/jquery.superslides.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/inewsticker.js"></script>
-    <script src="js/bootsnav.js."></script>
+    <script src="js/bootsnav.js"></script>
     <script src="js/images-loded.min.js"></script>
     <script src="js/isotope.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>

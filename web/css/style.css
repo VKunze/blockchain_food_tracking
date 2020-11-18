@@ -3072,3 +3072,26 @@ ul.cart-list>li.total>.btn:hover {
     padding: 12px 25px;
     border: none;
 }
+
+select.dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-position: 22px 3px;
+    background-size: 13px 13px;
+    width: 40px;
+    height: 20px;
+    margin-left: 4px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.overlay-arrow {
+    font-size: 9px;
+    color: red;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    cursor: default;
+    line-height: 1px;
+}

@@ -23,7 +23,7 @@ http.createServer((req, res) => {
         return;
     }
     if (fs.statSync(filename).isDirectory())
-        filename += 'web/index.html';
+        filename += 'index.html';
 
     readfile(res, filename);
 }).listen(8080)
