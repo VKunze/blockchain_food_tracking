@@ -1,8 +1,6 @@
 lastIndex = 0
 
-
-
-function start_bc(abi){
+function arrancarSmartContract(abi){
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
         window.ethereum.enable();
@@ -38,6 +36,11 @@ async function crearCajon(tipoContenido, nombreComercialProductor) {
     cuenta = await obtenerCuentas()
     window.cajon.methods.crearCajon(cuenta[0], obtenerIndex(), tipoContenido, nombreComercialProductor)
     console.log("ee")
+}
+
+async function obtenerCajon(tokenId){
+    (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
+    return (id, tipoContenido, trayecto)
 }
 
 async function agregarPuntoCadena(tokenId, nombreComercial) {
