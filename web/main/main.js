@@ -41,10 +41,30 @@ function obtenerIndex() {
     return lastIndex
 }
 
-document.addEventListener("DOMContentLoaded", async function (event) {
+document.addEventListener("DOMContentLoaded", async function(event) {
+
+    if (document.querySelector("#agregarPuntoCadena")) {
+        document.querySelector("#agregarPuntoCadena").addEventListener("click", async function() {
+            var tokenId = document.getElementById("idToken").innerHTML
+            if (tokenId != "" && nombre != "") {
+                console.log("En agregar pto cadena: " + tokenId + nombre)
+                await agregarPuntoCadena(tokenId, nombre)
+                document.querySelector("#ptoAgregado").fadeIn();
+                setTimeout(function() {
+                    jQuery("#ptoAgregado").fadeOut();
+                }, 3000);
+            } else {
+                document.querySelector("#ptoNoAgregado").fadeIn();
+                setTimeout(function() {
+                    jQuery("#ptoNoAgregado").fadeOut();
+                }, 3000);
+            }
+        });
+    }
+
     if (document.querySelector("#registrar")) {
         console.log("Entro")
-        document.querySelector("#registrar").addEventListener("click", async function () {
+        document.querySelector("#registrar").addEventListener("click", async function() {
             console.log("LLLLLLEEEEEEEEGGGGGGGGGGGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo")
             var address = document.getElementById("address").value
             var tipoWhitelist = document.getElementById("rubro").value
@@ -54,26 +74,18 @@ document.addEventListener("DOMContentLoaded", async function (event) {
             console.log("SUCCESS!")
         });
     }
-    if (document.querySelector("#agregarUbicacion")) {
-        document.querySelector("#agregarUbicacion").addEventListener("click", async function () {
-            tokenId = document.getElementById("???").innerHTML
-            nombreComercial = document.getElementById("???").innerHTML
-            await agregarPuntoCadena(tokenId, nombreComercial)
 
-        });
-    }
     if (document.querySelector("#buscarLote")) {
-        document.querySelector("#buscarLote").addEventListener("click", async function () {
+        document.querySelector("#buscarLote").addEventListener("click", async function() {
             console.log("HI")
-            var tokenId = document.getElementById("idToken").value
-            [id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
+            var tokenId = document.getElementById("idToken").value[id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
             document.getElementById("detallesCajon").style.display = "block"
             document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
             document.getElementById("trayectoCajon").innerHTML = trayecto
         });
     }
     if (document.querySelector("#boton")) {
-        document.querySelector("#boton").addEventListener("click", async function () {
+        document.querySelector("#boton").addEventListener("click", async function() {
             var id = obtenerIndex()
             var options = {
                 text: id
@@ -84,15 +96,5 @@ document.addEventListener("DOMContentLoaded", async function (event) {
             print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
         });
     }
-})
-
-document.addEventListener("DOMContentLoaded", async function (event) {
-    document.querySelector("#registrarProductor").addEventListener("click", async function () {
-        var address = document.getElementById("address").value
-        var tipoWhitelist = document.getElementById("rubro").value
-        nombre = document.getElementById("nombre").value
-        console.log("in agregar prod")
-        agregarAWhitelist(address, tipoWhitelist)
-    });
 
 })
