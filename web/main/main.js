@@ -1,8 +1,6 @@
 lastIndex = 0
 
-
-
-function start_bc(abi){
+function arrancarSmartContract(abi){
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
         window.ethereum.enable();
@@ -40,6 +38,11 @@ async function crearCajon(tipoContenido, nombreComercialProductor) {
     console.log("ee")
 }
 
+async function obtenerCajon(tokenId){
+    (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
+    return (id, tipoContenido, trayecto)
+}
+
 async function agregarPuntoCadena(tokenId, nombreComercial) {
     cuenta = await obtenerCuentas()
     window.cajon.methods.agregarPuntoCadena(tokenId, cuenta[1], nombreComercial)
@@ -56,5 +59,11 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         var tipoWhitelist = document.getElementById("rubro").value
         console.log("in agregar prod")
         agregarAWhitelist(address, tipoWhitelist)
+    });
+    document.querySelector("#buscarLote").addEventListener("click", async function() {
+        var tokenId = document.getElementById("idToken").value
+        /* await obtenerCajon(tokenId) */
+        document.getElementById("detallesCajon").style.display = "block"
+        
     });
 })
