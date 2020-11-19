@@ -591,8 +591,8 @@
         }
 
         async function obtenerCajon(tokenId) {
-            [id, tipoContenido, trayecto] = await window.cajon.methods.obtenerCajon(tokenId)
-            return (id, tipoContenido, trayecto)
+            (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
+            return [id, tipoContenido, trayecto]
         }
 
         async function agregarPuntoCadena(tokenId, nombreComercial) {
@@ -832,10 +832,10 @@
                 <div class="col-lg-12">
                     <h2>Buscar un lote</h2>
                     <div class="search-product">
-                        <form action="#">
-                            <input class="form-control" placeholder="Buscar aquí..." type="text" id=idToken>
-                            <button id="buscarLote"> <i class="fa fa-search"></i> </button>
-                        </form>
+                        
+                      <input class="form-control" placeholder="Buscar aquí..." type="text" id=idToken>
+                          <button id="buscarLote"> <i class="fa fa-search"></i> </button>
+                       
                     </div>
                 </div>
             </div>
