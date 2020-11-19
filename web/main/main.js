@@ -76,9 +76,11 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     }
 
     if (document.querySelector("#buscarLote")) {
+        console.log("ENTRó")
         document.querySelector("#buscarLote").addEventListener("click", async function() {
             console.log("HI")
-            var tokenId = document.getElementById("idToken").value[id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
+            var tokenId = document.getElementById("idToken").value
+            [id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
             document.getElementById("detallesCajon").style.display = "block"
             document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
             document.getElementById("trayectoCajon").innerHTML = trayecto
