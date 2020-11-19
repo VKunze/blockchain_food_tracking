@@ -63,5 +63,13 @@ document.addEventListener("DOMContentLoaded", async function(event) {
 
     document.addEventListener("#agregarUbicacion").addEventListener("click", async function() {
         
-    }
+    });
+    
+    document.querySelector("#buscarLote").addEventListener("click", async function() {
+        var tokenId = document.getElementById("idToken").value
+        /* await obtenerCajon(tokenId) */
+        document.getElementById("detallesCajon").style.display = "block"
+        
+    });
 })
+
