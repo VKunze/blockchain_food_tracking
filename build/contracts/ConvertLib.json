@@ -26,27 +26,27 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"conversionRate\",\"type\":\"uint256\"}],\"name\":\"convert\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"convertedAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/Lenovo/Documents/UM/Blockchain/blockchain_food_tracking/contracts/ConvertLib.sol\":\"ConvertLib\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/Lenovo/Documents/UM/Blockchain/blockchain_food_tracking/contracts/ConvertLib.sol\":{\"keccak256\":\"0xa95479aadd1facea97659bb29b825dbe847d6683880f0edc49b2e02517f3f5dd\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://035feb5b82d2e91cb244970d553c5e2099e4df7c9746d9a4f7bad3059ac4cae3\",\"dweb:/ipfs/QmYoYLHaXxjotgxDvEHYGadJyYtEKtETn8FDwFgzyZL62E\"]}},\"version\":1}",
-  "bytecode": "0x60c4610025600b82828239805160001a60731461001857fe5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea2646970667358221220dd807e85f4205933dd477438a11119a4de8b3df4c038698673359f4ebd814aef64736f6c634300060c0033",
-  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea2646970667358221220dd807e85f4205933dd477438a11119a4de8b3df4c038698673359f4ebd814aef64736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"conversionRate\",\"type\":\"uint256\"}],\"name\":\"convert\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"convertedAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/stephaniemendonca/Documents/GitHub/blockchain_food_tracking/contracts/ConvertLib.sol\":\"ConvertLib\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/stephaniemendonca/Documents/GitHub/blockchain_food_tracking/contracts/ConvertLib.sol\":{\"keccak256\":\"0xa95479aadd1facea97659bb29b825dbe847d6683880f0edc49b2e02517f3f5dd\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://035feb5b82d2e91cb244970d553c5e2099e4df7c9746d9a4f7bad3059ac4cae3\",\"dweb:/ipfs/QmYoYLHaXxjotgxDvEHYGadJyYtEKtETn8FDwFgzyZL62E\"]}},\"version\":1}",
+  "bytecode": "0x60c4610025600b82828239805160001a60731461001857fe5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea2646970667358221220101c70a9fad164d01bbb19b387b832fe95cacb80764e1e18dc0650354b3c6e6864736f6c634300060c0033",
+  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea2646970667358221220101c70a9fad164d01bbb19b387b832fe95cacb80764e1e18dc0650354b3c6e6864736f6c634300060c0033",
   "immutableReferences": {},
   "sourceMap": "66:155:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "66:155:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;87:132;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;158:20;201:14;192:6;:23;185:30;;87:132;;;;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.25 <0.7.0;\n\nlibrary ConvertLib{\n\tfunction convert(uint amount,uint conversionRate) public pure returns (uint convertedAmount)\n\t{\n\t\treturn amount * conversionRate;\n\t}\n}\n",
-  "sourcePath": "C:\\Users\\Lenovo\\Documents\\UM\\Blockchain\\blockchain_food_tracking\\contracts\\ConvertLib.sol",
+  "sourcePath": "/Users/stephaniemendonca/Documents/GitHub/blockchain_food_tracking/contracts/ConvertLib.sol",
   "ast": {
-    "absolutePath": "/C/Users/Lenovo/Documents/UM/Blockchain/blockchain_food_tracking/contracts/ConvertLib.sol",
+    "absolutePath": "/Users/stephaniemendonca/Documents/GitHub/blockchain_food_tracking/contracts/ConvertLib.sol",
     "exportedSymbols": {
       "ConvertLib": [
-        358
+        359
       ]
     },
-    "id": 359,
+    "id": 360,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 343,
+        "id": 344,
         "literals": [
           "solidity",
           ">=",
@@ -66,16 +66,16 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 358,
+        "id": 359,
         "linearizedBaseContracts": [
-          358
+          359
         ],
         "name": "ConvertLib",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 356,
+              "id": 357,
               "nodeType": "Block",
               "src": "181:38:1",
               "statements": [
@@ -86,18 +86,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 354,
+                    "id": 355,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 352,
+                      "id": 353,
                       "name": "amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 345,
+                      "referencedDeclaration": 346,
                       "src": "192:6:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -108,11 +108,11 @@
                     "operator": "*",
                     "rightExpression": {
                       "argumentTypes": null,
-                      "id": 353,
+                      "id": 354,
                       "name": "conversionRate",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 347,
+                      "referencedDeclaration": 348,
                       "src": "201:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -125,8 +125,8 @@
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 351,
-                  "id": 355,
+                  "functionReturnParameters": 352,
+                  "id": 356,
                   "nodeType": "Return",
                   "src": "185:30:1"
                 }
@@ -134,7 +134,7 @@
             },
             "documentation": null,
             "functionSelector": "96e4ee3d",
-            "id": 357,
+            "id": 358,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -142,17 +142,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 348,
+              "id": 349,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 345,
+                  "id": 346,
                   "mutability": "mutable",
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "104:11:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -161,7 +161,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 344,
+                    "id": 345,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "104:4:1",
@@ -175,12 +175,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 347,
+                  "id": 348,
                   "mutability": "mutable",
                   "name": "conversionRate",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "116:19:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -189,7 +189,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 346,
+                    "id": 347,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "116:4:1",
@@ -205,17 +205,17 @@
               "src": "103:33:1"
             },
             "returnParameters": {
-              "id": 351,
+              "id": 352,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 350,
+                  "id": 351,
                   "mutability": "mutable",
                   "name": "convertedAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "158:20:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -224,7 +224,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 349,
+                    "id": 350,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "158:4:1",
@@ -239,32 +239,32 @@
               ],
               "src": "157:22:1"
             },
-            "scope": 358,
+            "scope": 359,
             "src": "87:132:1",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 359,
+        "scope": 360,
         "src": "66:155:1"
       }
     ],
     "src": "32:190:1"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/Lenovo/Documents/UM/Blockchain/blockchain_food_tracking/contracts/ConvertLib.sol",
+    "absolutePath": "/Users/stephaniemendonca/Documents/GitHub/blockchain_food_tracking/contracts/ConvertLib.sol",
     "exportedSymbols": {
       "ConvertLib": [
-        358
+        359
       ]
     },
-    "id": 359,
+    "id": 360,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 343,
+        "id": 344,
         "literals": [
           "solidity",
           ">=",
@@ -284,16 +284,16 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 358,
+        "id": 359,
         "linearizedBaseContracts": [
-          358
+          359
         ],
         "name": "ConvertLib",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 356,
+              "id": 357,
               "nodeType": "Block",
               "src": "181:38:1",
               "statements": [
@@ -304,18 +304,18 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 354,
+                    "id": 355,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 352,
+                      "id": 353,
                       "name": "amount",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 345,
+                      "referencedDeclaration": 346,
                       "src": "192:6:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -326,11 +326,11 @@
                     "operator": "*",
                     "rightExpression": {
                       "argumentTypes": null,
-                      "id": 353,
+                      "id": 354,
                       "name": "conversionRate",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 347,
+                      "referencedDeclaration": 348,
                       "src": "201:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -343,8 +343,8 @@
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 351,
-                  "id": 355,
+                  "functionReturnParameters": 352,
+                  "id": 356,
                   "nodeType": "Return",
                   "src": "185:30:1"
                 }
@@ -352,7 +352,7 @@
             },
             "documentation": null,
             "functionSelector": "96e4ee3d",
-            "id": 357,
+            "id": 358,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -360,17 +360,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 348,
+              "id": 349,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 345,
+                  "id": 346,
                   "mutability": "mutable",
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "104:11:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -379,7 +379,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 344,
+                    "id": 345,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "104:4:1",
@@ -393,12 +393,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 347,
+                  "id": 348,
                   "mutability": "mutable",
                   "name": "conversionRate",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "116:19:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -407,7 +407,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 346,
+                    "id": 347,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "116:4:1",
@@ -423,17 +423,17 @@
               "src": "103:33:1"
             },
             "returnParameters": {
-              "id": 351,
+              "id": 352,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 350,
+                  "id": 351,
                   "mutability": "mutable",
                   "name": "convertedAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 357,
+                  "scope": 358,
                   "src": "158:20:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -442,7 +442,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 349,
+                    "id": 350,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "158:4:1",
@@ -457,14 +457,14 @@
               ],
               "src": "157:22:1"
             },
-            "scope": 358,
+            "scope": 359,
             "src": "87:132:1",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 359,
+        "scope": 360,
         "src": "66:155:1"
       }
     ],
@@ -483,7 +483,7 @@
     }
   },
   "schemaVersion": "3.3.1",
-  "updatedAt": "2020-11-16T14:32:48.193Z",
+  "updatedAt": "2020-11-19T16:08:56.716Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

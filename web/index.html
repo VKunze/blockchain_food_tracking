@@ -555,7 +555,7 @@
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
 
-            window.cajon = new window.web3.eth.Contract(abi, '0xDbd130C0010CB3948fc7e38Bbc0afE1d93a33cf8');
+            window.cajon = new window.web3.eth.Contract(abi, '0xE6995C5CE6E679d8D60827460C0cFd25a23F5222');
 
             window.cajon.events.Transfer({}, function(error, event) {
                 console.log(event);
@@ -571,8 +571,6 @@
             return cuentas;
         }
 
-        <<
-        << << < HEAD
         async function agregarAWhitelist(address, tipoWhitelist) {
             console.log("in main")
             var cuentas = await obtenerCuentas()
@@ -589,41 +587,17 @@
                     from: cuentas[3]
                 });
             }
-        } ===
-        === =
-        async function agregarAWhitelist(address, tipoWhitelist) {
-            console.log("in main")
-            var cuentas = await obtenerCuentas()
-            if (tipoWhitelist == "productores") {
-                window.cajon.methods.addToWhitelistProductores(address).send({
-                    from: cuentas[0]
-                });
-            } else if (tipoWhitelist == "distribuidores") {
-                window.cajon.methods.addToWhitelistDistribuidores(address).send();
-            } else if (tipoWhitelist == "puntosVenta") {
-                window.cajon.methods.isInWhitelistPuntosVenta(address).send();
-            }
-        } >>>
-        >>> > e9f1333b8dcf3a6d0c78847bf664fa109ea8c5ba
+        }
 
         // Productor: 0
 
-            <<
-            << << < HEAD
         async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
             cuenta = await obtenerCuentas()
             window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor).send({
-                from: cuentas[0]
+                from: cuenta[0]
             });
             console.log("ee")
-        } ===
-        === =
-        async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
-            cuenta = await obtenerCuentas()
-            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor)
-            console.log("ee")
-        } >>>
-        >>> > e9f1333b8dcf3a6d0c78847bf664fa109ea8c5ba
+        }
 
         async function obtenerCajon(tokenId) {
             datos = await window.cajon.methods.obtenerCajon(tokenId)
@@ -1097,7 +1071,7 @@
                     var tipoWhitelist = document.getElementById("rubro").value
                     nombre = document.getElementById("nombre").value
                     await agregarAWhitelist(address, tipoWhitelist)
-                    console.log("SUCCESS!")
+                        // console.log(await window.cajon.methods.get)
                 });
             }
 
@@ -1126,8 +1100,8 @@
                     }
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    crearCajon(document.getElementById("contenido").textContent(), nombre, id);
-                    print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
+                    crearCajon(document.getElementById("contenido").innerHTML, nombre, id);
+                    print("NUEVO CAJÓN: " + document.getElementById("contenido").innerHTML + nombre + id)
                 });
             }
 
