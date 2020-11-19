@@ -573,8 +573,9 @@
 
         async function agregarAWhitelist(address, tipoWhitelist) {
             console.log("in main")
+            var cuentas = await obtenerCuentas() 
             if (tipoWhitelist == "productores") {
-                window.cajon.methods.addToWhitelistProductores(address).send();
+                window.cajon.methods.addToWhitelistProductores(address).send({from:cuentas[0]});
             } else if (tipoWhitelist == "distribuidores") {
                 window.cajon.methods.addToWhitelistDistribuidores(address).send();
             } else if (tipoWhitelist == "puntosVenta") {
@@ -1116,11 +1117,9 @@
             if (document.querySelector("#registrar")) {
                 console.log("Entro")
                 document.querySelector("#registrar").addEventListener("click", async function () {
-                    console.log("LLLLLLEEEEEEEEGGGGGGGGGGGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo")
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
                     nombre = document.getElementById("nombre").value
-                    console.log("in agregar prod")
                     await agregarAWhitelist(address, tipoWhitelist)
                     console.log("SUCCESS!")
                 });
