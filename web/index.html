@@ -46,7 +46,7 @@
             window.ethereum.enable();
             window.metaCoin = new window.web3.eth.Contract(abi, '0xb0CF2b2a1276Be0A29052DF027c9b0E3B2bB2C05');
 
-            window.metaCoin.events.Transfer({}, function(error, event) {
+            window.metaCoin.events.Transfer({}, function (error, event) {
                 console.log(event);
             });
         }
@@ -59,9 +59,10 @@
             <div class="container">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-bars"></i>
-                </button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
                     <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
@@ -107,7 +108,7 @@
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
-            <div class="side">
+            <!--<div class="side">
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
@@ -132,7 +133,7 @@
                         </li>
                     </ul>
                 </li>
-            </div>
+            </div>-->
             <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->
@@ -159,9 +160,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> FoodTracking</strong></h1>
-                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="#">Shop New</a></p>
+                            <h1 class="m-b-20"><strong>Bienvenidos a <br> FoodTracking</strong></h1>
+                            <p class="m-b-40">Conoce la verdadera procedencia de tus alimentos <br>.</p>
+                            <!--<p><a class="btn hvr-hover" href="#">Shop New</a></p>-->
                         </div>
                     </div>
                 </div>
@@ -171,9 +172,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> FoodTracking</strong></h1>
-                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="#">Shop New</a></p>
+                            <h1 class="m-b-20"><strong>Bienvenidos a <br> FoodTracking</strong></h1>
+                            <p class="m-b-40">Conoce la verdadera procedencia de tus alimentos</p>
+                           <!-- <p><a class="btn hvr-hover" href="#">Shop New</a></p>-->
                         </div>
                     </div>
                 </div>
@@ -183,9 +184,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="m-b-20"><strong>Welcome To <br> FoodTracking</strong></h1>
-                            <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                            <p><a class="btn hvr-hover" href="#">Shop New</a></p>
+                            <h1 class="m-b-20"><strong>Bienvenidos a <br> FoodTracking</strong></h1>
+                            <p class="m-b-40">Conoce la verdadera procedencia de tus alimentos</p>
+                           <!-- <p><a class="btn hvr-hover" href="#">Shop New</a></p> -->
                         </div>
                     </div>
                 </div>
@@ -199,7 +200,7 @@
     <!-- End Slider -->
 
     <!-- Start Categories  -->
-    <div class="categories-shop">
+    <!--<div class="categories-shop">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -222,10 +223,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- End Categories -->
 
-    <div class="box-add-products">
+    <!--<div class="box-add-products">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -240,10 +241,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- Start Products  -->
-    <div class="products-box">
+    <!--<div class="products-box">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -275,9 +276,12 @@
                             <img src="images/img-pro-01.jpg" class="img-fluid" alt="Image">
                             <div class="mask-icon">
                                 <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                                class="fas fa-eye"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                                class="fas fa-sync-alt"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                 </ul>
                                 <a class="cart" href="#">Add to Cart</a>
                             </div>
@@ -298,9 +302,12 @@
                             <img src="images/img-pro-02.jpg" class="img-fluid" alt="Image">
                             <div class="mask-icon">
                                 <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                                class="fas fa-eye"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                                class="fas fa-sync-alt"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                 </ul>
                                 <a class="cart" href="#">Add to Cart</a>
                             </div>
@@ -321,9 +328,12 @@
                             <img src="images/img-pro-03.jpg" class="img-fluid" alt="Image">
                             <div class="mask-icon">
                                 <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                                class="fas fa-eye"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                                class="fas fa-sync-alt"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                 </ul>
                                 <a class="cart" href="#">Add to Cart</a>
                             </div>
@@ -344,9 +354,12 @@
                             <img src="images/img-pro-04.jpg" class="img-fluid" alt="Image">
                             <div class="mask-icon">
                                 <ul>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
-                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i
+                                                class="fas fa-eye"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i
+                                                class="fas fa-sync-alt"></i></a></li>
+                                    <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                            title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                 </ul>
                                 <a class="cart" href="#">Add to Cart</a>
                             </div>
@@ -359,11 +372,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- End Products  -->
 
     <!-- Start Blog  -->
-    <div class="latest-blog">
+    <!--<div class="latest-blog">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -382,7 +395,9 @@
                         <div class="blog-content">
                             <div class="title-blog">
                                 <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet
+                                    urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed
+                                    mollis. Praesent laoreet lacinia elit id lobortis.</p>
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -400,7 +415,9 @@
                         <div class="blog-content">
                             <div class="title-blog">
                                 <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet
+                                    urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed
+                                    mollis. Praesent laoreet lacinia elit id lobortis.</p>
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -418,7 +435,9 @@
                         <div class="blog-content">
                             <div class="title-blog">
                                 <h3>Fusce in augue non nisi fringilla</h3>
-                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                                <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet
+                                    urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed
+                                    mollis. Praesent laoreet lacinia elit id lobortis.</p>
                             </div>
                             <ul class="option-blog">
                                 <li><a href="#"><i class="far fa-heart"></i></a></li>
@@ -430,7 +449,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- End Blog  -->
 
 
@@ -441,7 +460,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-01.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        ><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -449,7 +468,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-02.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -457,7 +476,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-03.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -465,7 +484,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-04.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -473,7 +492,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-05.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -481,7 +500,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-06.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -489,7 +508,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-07.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -497,7 +516,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-08.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        ><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -505,7 +524,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-09.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -513,7 +532,7 @@
                 <div class="ins-inner-box">
                     <img src="images/instagram-img-05.jpg" alt="" />
                     <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -527,7 +546,7 @@
         <div class="footer-main">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
+                    <!--<div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-top-box">
                             <h3>Business Time</h3>
                             <ul class="list-time">
@@ -548,8 +567,8 @@
                                 <button class="btn hvr-hover" type="submit">Submit</button>
                             </form>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
+                    </div>-->
+                   <!--    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-top-box">
                             <h3>Social Media</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -563,42 +582,31 @@
                                 <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
-                            <h4>About FoodTracking</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                            <h4>Sobre FoodTracking</h4>
+                            <p>Todos los productores son previamente evaluados </p>
+                            <p>Contamos con el apoyo de los mejores nutricionistas del país </p>
+                            
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link">
-                            <h4>Information</h4>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Customer Service</a></li>
-                                <li><a href="#">Our Sitemap</a></li>
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Delivery Information</a></li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-link-contact">
                             <h4>Contact Us</h4>
                             <ul>
                                 <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                    <p><i class="fas fa-map-marker-alt"></i>Diección: Montevideo </p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                    <p><i class="fas fa-phone-square"></i>Phone: 099999999</a></p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                    <p><i class="fas fa-envelope"></i>Email: contactinfo@gmail.com</a></p>
                                 </li>
                             </ul>
                         </div>
@@ -611,8 +619,8 @@
 
     <!-- Start copyright  -->
     <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-            <a href="https://html.design/">html design</a></p>
+        <p class="footer-company">All Rights Reserved. &copy; 2018 Design By :
+           Valentina Kunze, Stephanie Mendonca, Victoria Tejera</a></p>
     </div>
     <!-- End copyright  -->
 
