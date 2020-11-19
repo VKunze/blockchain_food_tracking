@@ -1,6 +1,7 @@
 lastIndex = 0
+var nombre = ''
 
-function arrancarSmartContract(abi){
+function arrancarSmartContract(abi) {
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
         window.ethereum.enable();
@@ -16,29 +17,29 @@ function arrancarSmartContract(abi){
 
 async function obtenerCuentas() {
     var cuentas = await window.web3.eth.getAccounts();
-    return cuentas; 
+    return cuentas;
 }
 
 async function agregarAWhitelist(address, tipoWhitelist) {
     console.log("in main")
-    if(tipoWhitelist == "productores"){
+    if (tipoWhitelist == "productores") {
         window.cajon.methods.addToWhitelistProductores(address).send();
-    } else if(tipoWhitelist == "distribuidores"){
-        window.cajon.methods.addToWhitelistDistribuidores(address).send();    
-    } else if(tipoWhitelist == "puntosVenta"){
-        window.cajon.methods.isInWhitelistPuntosVenta(address).send();    
+    } else if (tipoWhitelist == "distribuidores") {
+        window.cajon.methods.addToWhitelistDistribuidores(address).send();
+    } else if (tipoWhitelist == "puntosVenta") {
+        window.cajon.methods.isInWhitelistPuntosVenta(address).send();
     }
 }
 
 // Productor: 0
 
-async function crearCajon(tipoContenido, nombreComercialProductor) {
+async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
     cuenta = await obtenerCuentas()
-    window.cajon.methods.crearCajon(cuenta[0], obtenerIndex(), tipoContenido, nombreComercialProductor)
+    window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor)
     console.log("ee")
 }
 
-async function obtenerCajon(tokenId){
+async function obtenerCajon(tokenId) {
     (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
     return (id, tipoContenido, trayecto)
 }
@@ -48,8 +49,8 @@ async function agregarPuntoCadena(tokenId, nombreComercial) {
     window.cajon.methods.agregarPuntoCadena(tokenId, cuenta[1], nombreComercial)
 }
 
-function obtenerIndex(){
-    lastIndex= lastIndex+1
+function obtenerIndex() {
+    lastIndex = lastIndex + 1
     return lastIndex
 }
 
@@ -57,13 +58,28 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     document.querySelector("#registrarProductor").addEventListener("click", async function() {
         var address = document.getElementById("address").value
         var tipoWhitelist = document.getElementById("rubro").value
+        nombre = document.getElementById("nombre").value
         console.log("in agregar prod")
         agregarAWhitelist(address, tipoWhitelist)
     });
     document.querySelector("#buscarLote").addEventListener("click", async function() {
         var tokenId = document.getElementById("idToken").value
-        /* await obtenerCajon(tokenId) */
+            /* await obtenerCajon(tokenId) */
         document.getElementById("detallesCajon").style.display = "block"
-        
+
+    });
+})
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+    document.querySelector("#boton").addEventListener("click", async function() {
+        var id = obtenerIndex()
+        var options = {
+            text: id
+        }
+        qrCode = new QRCode(document.getElementById("qrcode"), options);
+        document.getElementById("msj").style.display = "block";
+        crearCajon(document.getElementById("contenido").textContent(), nombre, id);
+        print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
+
     });
 })
