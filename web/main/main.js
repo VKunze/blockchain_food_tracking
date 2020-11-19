@@ -1,5 +1,6 @@
 lastIndex = 0
 var nombre = ''
+var tokenId = ''
 
 function arrancarSmartContract(abi) {
     if (window.ethereum) {
@@ -55,6 +56,22 @@ function obtenerIndex() {
 }
 
 document.addEventListener("DOMContentLoaded", async function(event) {
+    document.querySelector("#agregarPuntoCadena").addEventListener("click", async function() {
+        if (tokenId != "" && nombre != "") {
+            console.log("En agregar pto cadena: " + tokenId + nombre)
+            agregarPuntoCadena(tokenId, nombre)
+            document.querySelector("#ptoAgregado").fadeIn();
+            setTimeout(function() {
+                jQuery("#ptoAgregado").fadeOut();
+            }, 3000);
+        } else {
+            document.querySelector("#ptoNoAgregado").fadeIn();
+            setTimeout(function() {
+                jQuery("#ptoNoAgregado").fadeOut();
+            }, 3000);
+        }
+    });
+
     document.querySelector("#registrarProductor").addEventListener("click", async function() {
         var address = document.getElementById("address").value
         var tipoWhitelist = document.getElementById("rubro").value
@@ -64,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     });
     document.querySelector("#buscarLote").addEventListener("click", async function() {
         console.log("HI")
-        var tokenId = document.getElementById("idToken").value[id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
+        tokenId = document.getElementById("idToken").value[id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
         document.getElementById("detallesCajon").style.display = "block"
         document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
         document.getElementById("trayectoCajon").innerHTML = trayecto
