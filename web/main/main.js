@@ -1,17 +1,7 @@
 lastIndex = 0
 
-function arrancarSmartContract(abi){
-    if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum);
-        window.ethereum.enable();
-
-        window.cajon = new window.web3.eth.Contract(abi, '0xDbd130C0010CB3948fc7e38Bbc0afE1d93a33cf8');
-
-        window.cajon.events.Transfer({}, function(error, event) {
-            console.log(event);
-        });
-        console.log(obtenerCuentas())
-    }
+exports.arrancarSmartContract = (abi) => {
+    
 }
 
 async function obtenerCuentas() {
@@ -55,16 +45,21 @@ function obtenerIndex(){
 
 document.addEventListener("DOMContentLoaded", async function(event) {
     document.querySelector("#registrarProductor").addEventListener("click", async function() {
+    console.log("LLLLLLEEEEEEEEGGGGGGGGGGGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo")
         var address = document.getElementById("address").value
         var tipoWhitelist = document.getElementById("rubro").value
         console.log("in agregar prod")
-        agregarAWhitelist(address, tipoWhitelist)
+        await agregarAWhitelist(address, tipoWhitelist)
+        console.log("SUCCESS!")
     });
 
     document.addEventListener("#agregarUbicacion").addEventListener("click", async function() {
-        
+        tokenId = document.getElementById("???").innerHTML
+        nombreComercial =  document.getElementById("???").innerHTML
+        await agregarPuntoCadena(tokenId, nombreComercial)
+
     });
-    
+
     document.querySelector("#buscarLote").addEventListener("click", async function() {
         var tokenId = document.getElementById("idToken").value
         /* await obtenerCajon(tokenId) */
