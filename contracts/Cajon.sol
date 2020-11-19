@@ -55,7 +55,7 @@ contract Cajon is ERC721, Ownable {
 
     function obtenerCajon(uint256 tokenId) public view returns(uint256, string memory, puntoCadena[] memory) {
         require(items[tokenId].exists, "the token doesn't exists");
-        return (items[tokenId].id, items[tokenId].tipoContenido,items[tokenId].trayecto);
+        return (items[tokenId].id, items[tokenId].tipoContenido, items[tokenId].trayecto);
     }
 
     function destruirCajon(uint256 tokenId) isInWhitelistPuntosVenta public {
