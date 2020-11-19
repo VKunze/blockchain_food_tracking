@@ -57,4 +57,10 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         console.log("in agregar prod")
         agregarAWhitelist(address, tipoWhitelist)
     });
+    document.querySelector("#buscarLote").addEventListener("click", async function() {
+        var tokenId = document.getElementById("idToken").value
+        /* await obtenerCajon(tokenId) */
+        document.getElementById("detallesCajon").style.display = "block"
+        
+    });
 })
