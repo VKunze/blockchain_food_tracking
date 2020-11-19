@@ -60,4 +60,8 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         console.log("in agregar prod")
         agregarAWhitelist(address, tipoWhitelist)
     });
+
+    document.addEventListener("#agregarUbicacion").addEventListener("click", async function() {
+        
+    }
 })
