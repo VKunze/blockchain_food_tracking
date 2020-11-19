@@ -36,6 +36,8 @@
 </head>
 
 <body>
+    <script src="main/main.js"></script>
+    <script src="main/auxiliar.js"></script>
 
     <!-- Start Main Top -->
     <header class="main-header">
@@ -113,7 +115,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select id="basic" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
+                                        <select id="rubro" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
                                             <option data-display="Select">Rubro</option>
                                             <option value="productores">Productor</option>
                                             <option value="distribuidores">Distribuidor</option>
@@ -126,12 +128,6 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="text" placeholder="RUT" id="rut" class="form-control" name="name" required data-error="Por favor complete este campo">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Address" id="address" class="form-control" name="name" required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -158,12 +154,22 @@
                                         <textarea class="form-control" id="message" placeholder="Your Message" rows="4" data-error="Write your message" required></textarea>
                                         <div class="help-block with-errors"></div>
                                     </div> -->
-                                <div class="submit-button text-center">
-                                    <button class="btn hvr-hover" id="submit" type="submit">Registrar</button>
-                                    <div id="msgSubmit" class="h3 text-center hidden"></div>
-                                    <div class="clearfix"></div>
+                                
+                                
+                                <p>Complete el siguiente campo con su cuenta en Ethereum</p>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Address" id="address" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
                                 </div>
                             </div>
+                                <div class="submit-button text-center">
+                                    <button class="btn hvr-hover" id="registrarProductor">Registrar</button>
+                                   <!--  <div id="msgSubmit" class="h3 text-center hidden"></div> -->
+                                    <!-- <div class="clearfix"></div> -->
+                                </div>
+                            
                     </div>
                     </form>
                 </div>
@@ -390,6 +396,10 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+
+
+
+    
 </body>
 
 </html>
