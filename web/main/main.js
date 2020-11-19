@@ -40,7 +40,7 @@ async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
 }
 
 async function obtenerCajon(tokenId) {
-    (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
+    [id, tipoContenido, trayecto] = await window.cajon.methods.obtenerCajon(tokenId)
     return (id, tipoContenido, trayecto)
 }
 
@@ -63,14 +63,15 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         agregarAWhitelist(address, tipoWhitelist)
     });
     document.querySelector("#buscarLote").addEventListener("click", async function() {
-        var tokenId = document.getElementById("idToken").value
+        console.log("HI")
+        var tokenId = document.getElementById("idToken").value[id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
+        document.getElementById("detallesCajon").style.display = "block"
+        document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
+        document.getElementById("trayectoCajon").innerHTML = trayecto
             /* await obtenerCajon(tokenId) */
         document.getElementById("detallesCajon").style.display = "block"
 
     });
-})
-
-document.addEventListener("DOMContentLoaded", async function(event) {
     document.querySelector("#boton").addEventListener("click", async function() {
         var id = obtenerIndex()
         var options = {
@@ -80,6 +81,5 @@ document.addEventListener("DOMContentLoaded", async function(event) {
         document.getElementById("msj").style.display = "block";
         crearCajon(document.getElementById("contenido").textContent(), nombre, id);
         print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
-
     });
 })
