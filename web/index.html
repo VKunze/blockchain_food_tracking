@@ -557,11 +557,50 @@
 
             window.cajon = new window.web3.eth.Contract(abi, '0xDbd130C0010CB3948fc7e38Bbc0afE1d93a33cf8');
 
-            window.cajon.events.Transfer({}, function(error, event) {
+            window.cajon.events.Transfer({}, function (error, event) {
                 console.log(event);
             });
             console.log("Connected!")
         }
+        lastIndex = 0
+        var nombre = ''
+
+
+        async function obtenerCuentas() {
+            var cuentas = await window.web3.eth.getAccounts();
+            return cuentas;
+        }
+
+        async function agregarAWhitelist(address, tipoWhitelist) {
+            console.log("in main")
+            if (tipoWhitelist == "productores") {
+                window.cajon.methods.addToWhitelistProductores(address).send();
+            } else if (tipoWhitelist == "distribuidores") {
+                window.cajon.methods.addToWhitelistDistribuidores(address).send();
+            } else if (tipoWhitelist == "puntosVenta") {
+                window.cajon.methods.isInWhitelistPuntosVenta(address).send();
+            }
+        }
+
+        // Productor: 0
+
+        async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
+            cuenta = await obtenerCuentas()
+            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor)
+            console.log("ee")
+        }
+
+        async function obtenerCajon(tokenId) {
+            [id, tipoContenido, trayecto] = await window.cajon.methods.obtenerCajon(tokenId)
+            return (id, tipoContenido, trayecto)
+        }
+
+        async function agregarPuntoCadena(tokenId, nombreComercial) {
+            cuenta = await obtenerCuentas()
+            window.cajon.methods.agregarPuntoCadena(tokenId, cuenta[1], nombreComercial)
+        }
+
+
     </script>
     <!-- Start Main Top -->
     <header class="main-header">
@@ -570,7 +609,8 @@
             <div class="container">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                        aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
                     <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
@@ -665,43 +705,50 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="nombre" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
+                                        <input type="text" class="form-control" id="nombre" name="name"
+                                            placeholder="Razón Social" required
+                                            data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select id="rubro" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
-                                          <option data-display="Select">Rubro</option>
-                                          <option value="productores">Productor</option>
-                                          <option value="distribuidores">Distribuidor</option>
-                                          <option value="puntosVenta">Punto de venta</option>
-                                      </select>
+                                        <select id="rubro" class="selectpicker show-tick form-control dropdown"
+                                            data-placeholder="Rubro" style="cursor:pointer">
+                                            <option data-display="Select">Rubro</option>
+                                            <option value="productores">Productor</option>
+                                            <option value="distribuidores">Distribuidor</option>
+                                            <option value="puntosVenta">Punto de venta</option>
+                                        </select>
                                         <div class="overlay-arrow">&#9660;</div>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="RUT" id="rut" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <input type="text" placeholder="RUT" id="rut" class="form-control" name="name"
+                                            required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Dirección" id="direccion" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <input type="text" placeholder="Dirección" id="direccion" class="form-control"
+                                            name="name" required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Teléfono" id="telefono" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <input type="text" placeholder="Teléfono" id="telefono" class="form-control"
+                                            name="name" required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Email" id="email" class="form-control" name="name" required data-error="Please enter your email">
+                                        <input type="text" placeholder="Email" id="email" class="form-control"
+                                            name="name" required data-error="Please enter your email">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -715,7 +762,8 @@
                                 <p>Complete el siguiente campo con su cuenta en Ethereum</p>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Address" id="address" class="form-control" name="name" required data-error="Por favor complete este campo">
+                                        <input type="text" placeholder="Address" id="address" class="form-control"
+                                            name="name" required data-error="Por favor complete este campo">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
@@ -742,24 +790,29 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="contact-form-right">
                         <h2>INGRESAR LOTE</h2>
-                        <p>Indique a continuación el contenido del nuevo lote y presione el botón para obtener un código QR asociado al mismo. </p>
+                        <p>Indique a continuación el contenido del nuevo lote y presione el botón para obtener un código
+                            QR asociado al mismo. </p>
                         <!-- <form> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="contenido" name="name" placeholder="Contenido" required data-error="Por favor complete este campo">
+                                    <input type="text" class="form-control" id="contenido" name="name"
+                                        placeholder="Contenido" required data-error="Por favor complete este campo">
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="text-center">
 
-                                    <button class="btn hvr-hover" id='boton' style="background-color: #979c83;color: white;">Ingresar lote</button>
+                                    <button class="btn hvr-hover" id='boton'
+                                        style="background-color: #979c83;color: white;">Ingresar lote</button>
 
                                     <!-- <div id="msgSubmit" class="h3 text-center hidden"></div> -->
                                     <!-- <div class="clearfix"></div> -->
                                 </div>
-                                <p id="msj" style="display: none; margin-top: 15px;">Tome una captura del siguiente código para poder imprimirlo y ubicarlo en el cajón correspondiente al lote que acaba de ingresar: </p>
+                                <p id="msj" style="display: none; margin-top: 15px;">Tome una captura del siguiente
+                                    código para poder imprimirlo y ubicarlo en el cajón correspondiente al lote que
+                                    acaba de ingresar: </p>
                                 <div id="qrcode"></div>
 
                             </div>
@@ -795,9 +848,12 @@
                 <div class="col-xl-5 col-lg-5 col-md-6">
                     <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active"> <img class="d-block w-100" src="images/big-img-01.jpg" alt="First slide"> </div>
-                            <div class="carousel-item"> <img class="d-block w-100" src="images/big-img-02.jpg" alt="Second slide"> </div>
-                            <div class="carousel-item"> <img class="d-block w-100" src="images/big-img-03.jpg" alt="Third slide"> </div>
+                            <div class="carousel-item active"> <img class="d-block w-100" src="images/big-img-01.jpg"
+                                    alt="First slide"> </div>
+                            <div class="carousel-item"> <img class="d-block w-100" src="images/big-img-02.jpg"
+                                    alt="Second slide"> </div>
+                            <div class="carousel-item"> <img class="d-block w-100" src="images/big-img-03.jpg"
+                                    alt="Third slide"> </div>
                         </div>
                         <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
                             <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -828,7 +884,8 @@
                         <div class="card-body">
                             <div class="media mb-3">
                                 <div class="mr-2">
-                                    <img class="rounded-circle border p-1" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                    <img class="rounded-circle border p-1"
+                                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
                                         alt="Generic placeholder image">
                                 </div>
                                 <div class="media-body">
@@ -839,7 +896,8 @@
                             <hr>
                             <div class="media mb-3">
                                 <div class="mr-2">
-                                    <img class="rounded-circle border p-1" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                    <img class="rounded-circle border p-1"
+                                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
                                         alt="Generic placeholder image">
                                 </div>
                                 <div class="media-body">
@@ -850,7 +908,8 @@
                             <hr>
                             <div class="media mb-3">
                                 <div class="mr-2">
-                                    <img class="rounded-circle border p-1" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                    <img class="rounded-circle border p-1"
+                                        src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2264%22%20height%3D%2264%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_160c142c97c%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_160c142c97c%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2213.5546875%22%20y%3D%2236.5%22%3E64x64%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
                                         alt="Generic placeholder image">
                                 </div>
                                 <div class="media-body">
@@ -1003,7 +1062,8 @@
 
     <!-- Start copyright  -->
     <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; 2018 Design By : Valentina Kunze, Stephanie Mendonca, Victoria Tejera</a>
+        <p class="footer-company">All Rights Reserved. &copy; 2018 Design By : Valentina Kunze, Stephanie Mendonca,
+            Victoria Tejera</a>
         </p>
     </div>
     <!-- End copyright  -->
@@ -1027,7 +1087,71 @@
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
 
-    <script src="main/main.js"></script>
+    <script>
+        function obtenerIndex() {
+            lastIndex = lastIndex + 1
+            return lastIndex
+        }
+        document.addEventListener("DOMContentLoaded", async function (event) {
+
+            if (document.querySelector("#agregarPuntoCadena")) {
+                document.querySelector("#agregarPuntoCadena").addEventListener("click", async function () {
+                    var tokenId = document.getElementById("idToken").innerHTML
+                    if (tokenId != "" && nombre != "") {
+                        console.log("En agregar pto cadena: " + tokenId + nombre)
+                        await agregarPuntoCadena(tokenId, nombre)
+                        document.querySelector("#ptoAgregado").fadeIn();
+                        setTimeout(function () {
+                            jQuery("#ptoAgregado").fadeOut();
+                        }, 3000);
+                    } else {
+                        document.querySelector("#ptoNoAgregado").fadeIn();
+                        setTimeout(function () {
+                            jQuery("#ptoNoAgregado").fadeOut();
+                        }, 3000);
+                    }
+                });
+            }
+
+            if (document.querySelector("#registrar")) {
+                console.log("Entro")
+                document.querySelector("#registrar").addEventListener("click", async function () {
+                    console.log("LLLLLLEEEEEEEEGGGGGGGGGGGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo")
+                    var address = document.getElementById("address").value
+                    var tipoWhitelist = document.getElementById("rubro").value
+                    nombre = document.getElementById("nombre").value
+                    console.log("in agregar prod")
+                    await agregarAWhitelist(address, tipoWhitelist)
+                    console.log("SUCCESS!")
+                });
+            }
+
+            if (document.querySelector("#buscarLote")) {
+                console.log("ENTRó")
+                document.querySelector("#buscarLote").addEventListener("click", async function () {
+                    console.log("HI")
+                    var tokenId = document.getElementById("idToken").value
+                    [id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
+                    document.getElementById("detallesCajon").style.display = "block"
+                    document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
+                    document.getElementById("trayectoCajon").innerHTML = trayecto
+                });
+            }
+            if (document.querySelector("#boton")) {
+                document.querySelector("#boton").addEventListener("click", async function () {
+                    var id = obtenerIndex()
+                    var options = {
+                        text: id
+                    }
+                    qrCode = new QRCode(document.getElementById("qrcode"), options);
+                    document.getElementById("msj").style.display = "block";
+                    crearCajon(document.getElementById("contenido").textContent(), nombre, id);
+                    print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
+                });
+            }
+
+        })
+    </script>
 </body>
 
 </html>
