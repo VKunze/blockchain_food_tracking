@@ -1,4 +1,5 @@
 lastIndex = 0
+var nombre = ''
 
 
 async function obtenerCuentas() {
@@ -19,9 +20,9 @@ async function agregarAWhitelist(address, tipoWhitelist) {
 
 // Productor: 0
 
-async function crearCajon(tipoContenido, nombreComercialProductor) {
+async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
     cuenta = await obtenerCuentas()
-    window.cajon.methods.crearCajon(cuenta[0], obtenerIndex(), tipoContenido, nombreComercialProductor)
+    window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor)
     console.log("ee")
 }
 
@@ -47,30 +48,51 @@ document.addEventListener("DOMContentLoaded", async function (event) {
             console.log("LLLLLLEEEEEEEEGGGGGGGGGGGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo")
             var address = document.getElementById("address").value
             var tipoWhitelist = document.getElementById("rubro").value
+            nombre = document.getElementById("nombre").value
             console.log("in agregar prod")
             await agregarAWhitelist(address, tipoWhitelist)
             console.log("SUCCESS!")
         });
     }
-    if(document.querySelector("#agregarUbicacion")){
-        document.querySelector("#agregarUbicacion").addEventListener("click", async function() {
+    if (document.querySelector("#agregarUbicacion")) {
+        document.querySelector("#agregarUbicacion").addEventListener("click", async function () {
             tokenId = document.getElementById("???").innerHTML
-            nombreComercial =  document.getElementById("???").innerHTML
+            nombreComercial = document.getElementById("???").innerHTML
             await agregarPuntoCadena(tokenId, nombreComercial)
-    
+
         });
     }
-    if(document.querySelector("#buscarLote")){
-        document.querySelector("#buscarLote").addEventListener("click", async function() {
+    if (document.querySelector("#buscarLote")) {
+        document.querySelector("#buscarLote").addEventListener("click", async function () {
             console.log("HI")
             var tokenId = document.getElementById("idToken").value
-            [id, tipoContenido, trayecto]= await obtenerCajon(tokenId)  
+            [id, tipoContenido, trayecto] = await obtenerCajon(tokenId)
             document.getElementById("detallesCajon").style.display = "block"
-            document.getElementById("tipoContenidoCajon").innerHTML= tipoContenido
-            document.getElementById("trayectoCajon").innerHTML= trayecto
-            
-            
+            document.getElementById("tipoContenidoCajon").innerHTML = tipoContenido
+            document.getElementById("trayectoCajon").innerHTML = trayecto
+        });
+    }
+    if (document.querySelector("#boton")) {
+        document.querySelector("#boton").addEventListener("click", async function () {
+            var id = obtenerIndex()
+            var options = {
+                text: id
+            }
+            qrCode = new QRCode(document.getElementById("qrcode"), options);
+            document.getElementById("msj").style.display = "block";
+            crearCajon(document.getElementById("contenido").textContent(), nombre, id);
+            print("NUEVO CAJÓN: " + document.getElementById("contenido").textContent() + nombre + id)
         });
     }
 })
 
+document.addEventListener("DOMContentLoaded", async function (event) {
+    document.querySelector("#registrarProductor").addEventListener("click", async function () {
+        var address = document.getElementById("address").value
+        var tipoWhitelist = document.getElementById("rubro").value
+        nombre = document.getElementById("nombre").value
+        console.log("in agregar prod")
+        agregarAWhitelist(address, tipoWhitelist)
+    });
+
+})
