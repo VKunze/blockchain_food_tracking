@@ -29,7 +29,7 @@ async function crearCajon(tipoContenido, nombreComercialProductor) {
 }
 
 async function obtenerCajon(tokenId){
-    (id, tipoContenido, trayecto) = await window.cajon.methods.obtenerCajon(tokenId)
+    [id, tipoContenido, trayecto] = await window.cajon.methods.obtenerCajon(tokenId)
     return (id, tipoContenido, trayecto)
 }
 
@@ -61,9 +61,13 @@ document.addEventListener("DOMContentLoaded", async function(event) {
     });
 
     document.querySelector("#buscarLote").addEventListener("click", async function() {
+        console.log("HI")
         var tokenId = document.getElementById("idToken").value
-        /* await obtenerCajon(tokenId) */
+        [id, tipoContenido, trayecto]= await obtenerCajon(tokenId)  
         document.getElementById("detallesCajon").style.display = "block"
+        document.getElementById("tipoContenidoCajon").innerHTML= tipoContenido
+        document.getElementById("trayectoCajon").innerHTML= trayecto
+        
         
     });
 })
