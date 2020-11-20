@@ -898,13 +898,10 @@
                             <hr>
                             <button class="btn hvr-hover" type="submit" id="agregarPuntoCadena">Agregar ubicación</button>
                             <div id="autenticarse" class="col-md-12" style="display: none; margin-top: 15px;">
-                                <<<<<<< HEAD <p>Ingrese el nombre de su empresa</p>
-                                    <input type="text" class="form-control" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo"> =======
-                                    <div class="form-group">
-                                        <p>Ingrese el nombre de su empresa</p>
-                                        <input type="text" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
-                                    </div>
-                                    >>>>>>> 216968d11bd507fc3901f1f8f0059365a6782789
+                                <div class="form-group">
+                                    <p>Ingrese el nombre de su empresa</p>
+                                    <input type="text" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
+                                </div>
                             </div>
                             <div class="alert alert-success" style="display: none;" id="ptoAgregado" role="alert">
                                 Ubicación agregada correctamente. Para ver los cambios vuelva a presionar el botón de la lupa.
@@ -1083,7 +1080,7 @@
 
                     if (tokenId != "" && nombre != "") {
                         await agregarPuntoCadena(tokenId, nombre)
-                        
+
                         document.getElementById("autenticarse").style.display = "none";
                         jQuery("#ptoAgregado").fadeIn();
                         setTimeout(function() {
@@ -1099,7 +1096,7 @@
             }
 
             if (document.querySelector("#registrar")) {
-                document.querySelector("#registrar").addEventListener("click", async function () {
+                document.querySelector("#registrar").addEventListener("click", async function() {
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
                     var nombre = document.getElementById("nombre").value
@@ -1140,7 +1137,7 @@
                     document.getElementById("qrcode").innerHTML = ""
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    
+
                     await crearCajon(document.getElementById("contenido").value, id);
                 });
             }
