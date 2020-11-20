@@ -747,11 +747,9 @@
         async function crearCajon(tipoContenido, codigoQR) {
             cuenta = await obtenerCuentas()
             var fecha = Date.now();
-            console.log("in crear cajon")
             window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, fecha).send({
                 from: cuenta[0]
             });
-            console.log("ee")
         }
 
         async function obtenerCajon(tokenId) {
@@ -765,7 +763,6 @@
             })
             var fechas = [datos[3].length]
             for (var i = 0; i < datos[3].length; i++) {
-                console.log("in for; ", i)
                 fecha = new Date(parseInt(datos[3][i]))
                 fechas[i] = fecha.toLocaleString('en-GB', {
                     hour12: false
@@ -1247,14 +1244,13 @@
                 document.querySelector("#agregarPuntoCadena").addEventListener("click", async function () {
                     var tokenId = document.getElementById("idToken").value
                     document.getElementById("autenticarse").style.display = "block";
-                    // var nombre = "Distribuidora S.A."
                     var nombre = document.getElementById("nombreAut").value
-                    console.log("TOKEN" + tokenId)
-                    console.log("NOMBRE" + nombre)
+
                     if (tokenId != "" && nombre != "") {
                         await agregarPuntoCadena(tokenId, nombre)
-                        document.getElementById("autenticarse").style.display = "none";
                         await mostrarInfoCajon()
+                        
+                        document.getElementById("autenticarse").style.display = "none";
                         jQuery("#ptoAgregado").fadeIn();
                         setTimeout(function () {
                             jQuery("#ptoAgregado").fadeOut();
@@ -1269,7 +1265,6 @@
             }
 
             if (document.querySelector("#registrar")) {
-                console.log("Entro")
                 document.querySelector("#registrar").addEventListener("click", async function () {
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
@@ -1279,7 +1274,6 @@
             }
 
             if (document.querySelector("#buscarLote")) {
-                console.log("ENTRó")
                 document.querySelector("#buscarLote").addEventListener("click", async function () {
                     await mostrarInfoCajon();
                 });
@@ -1298,7 +1292,7 @@
                     document.getElementById("qrcode").innerHTML = ""
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    //var nombre = 'Granja "La Familia"'
+                    
                     await crearCajon(document.getElementById("contenido").value, id);
                 });
             }
