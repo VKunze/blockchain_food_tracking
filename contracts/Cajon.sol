@@ -2,19 +2,13 @@
 pragma solidity >=0.4.25 <0.7.0;
 pragma experimental ABIEncoderV2;
 
-import "./ConvertLib.sol";
-// This is just a simple example of a coin-like contract.
-// It is not standards compatible and cannot be expected to talk to other
-// coin/token contracts. If you want to create a standards-compliant
-// token, see: https://github.com/ConsenSys/Tokens. Cheers!
-
-
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/math.sol";
+//import "github.com/Arachnid/solidity-stringutils/strings.sol";
 
 contract Cajon is ERC721, Ownable {
-    address duenio = 0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0; 
+    address duenio = 0xf2d516456CF57796029cA68310E075d0c3b5277C; 
 
     struct UnidadCajon {
         uint256 id;
@@ -29,7 +23,7 @@ contract Cajon is ERC721, Ownable {
         string nombreComercial;
     }
 
-    mapping(address => bool) whitelistProductores;
+    mapping(address => string) whitelistProductores;
     mapping(address => bool) whitelistPuntosVenta;
     mapping(address => bool) whitelistDistribuidores;
     mapping(uint256 => UnidadCajon) items;
@@ -44,12 +38,12 @@ contract Cajon is ERC721, Ownable {
     }
 
     modifier isInWhitelistProductores(){
-        require(whitelistProductores[msg.sender]==true, "is not in the whitelistProductores");
+        require(keccak256(abi.encodePacked(whitelistProductores[msg.sender])) != keccak256(abi.encodePacked("")), "is not in the whitelistProductores");
         _;
     }
 
     modifier isInWhitelistComerciantes(){
-        require(whitelistDistribuidores[msg.sender]==true || whitelistPuntosVenta[msg.sender]==true || whitelistProductores[msg.sender]==true, "is not in the WhitelistComerciantes");
+        require(whitelistDistribuidores[msg.sender]==true || whitelistPuntosVenta[msg.sender]==true || keccak256(abi.encodePacked(whitelistProductores[msg.sender])) != keccak256(abi.encodePacked("")), "is not in the WhitelistComerciantes");
         _;
     }
 
@@ -63,12 +57,13 @@ contract Cajon is ERC721, Ownable {
         _;
     }
 
-    function crearCajon(address addressProductor, uint256 tokenId, string memory tipoContenido, string memory nombreComercialProductor, uint256 fecha) isInWhitelistProductores public {
+    function crearCajon(address addressProductor, uint256 tokenId, string memory tipoContenido, uint256 fecha) isInWhitelistProductores public {
         _mint(addressProductor, tokenId);
         items[tokenId].id = tokenId;
         items[tokenId].tipoContenido = tipoContenido;
         items[tokenId].exists = true;
-        agregarPuntoCadena(tokenId,addressProductor,nombreComercialProductor,fecha);
+        string memory nombreComercialProductor = whitelistProductores[addressProductor];
+        agregarPuntoCadena(tokenId, addressProductor, nombreComercialProductor, fecha);
     }
 
 
@@ -103,8 +98,9 @@ contract Cajon is ERC721, Ownable {
         items[tokenId].trayecto.push(nuevoPuntoCadena);
     }
 
-    function addToWhitelistProductores(address account) soloDuenio public{
-        whitelistProductores[account] = true;
+    function addToWhitelistProductores(address account, string memory nombreComercial) soloDuenio public{
+        whitelistProductores[account] = nombreComercial;
+
     }
 
     function addToWhitelistPuntosVenta(address account) soloDuenio public{
@@ -116,7 +112,7 @@ contract Cajon is ERC721, Ownable {
     }
 
      function removeFromWhitelistProductores(address account) soloDuenio public{
-        whitelistProductores[account] = false;
+        whitelistProductores[account] = "";
     }
 
     function removeFromWhitelistPuntosVenta(address account) soloDuenio public{

@@ -34,6 +34,8 @@
     <![endif]-->
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script>
+        var addressContrato = '0xe56106AA64A5FC6ef931350A3838081513db088b'
+        var addressDuenio = '0xf2d516456CF57796029cA68310E075d0c3b5277C'
         var abi = [{
             "inputs": [],
             "stateMutability": "nonpayable",
@@ -412,10 +414,6 @@
                 "name": "tipoContenido",
                 "type": "string"
             }, {
-                "internalType": "string",
-                "name": "nombreComercialProductor",
-                "type": "string"
-            }, {
                 "internalType": "uint256",
                 "name": "fecha",
                 "type": "uint256"
@@ -492,6 +490,10 @@
                 "internalType": "address",
                 "name": "account",
                 "type": "address"
+            }, {
+                "internalType": "string",
+                "name": "nombreComercial",
+                "type": "string"
             }],
             "name": "addToWhitelistProductores",
             "outputs": [],
@@ -558,7 +560,7 @@
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
 
-            window.cajon = new window.web3.eth.Contract(abi, '0x54d2c4BF6301ACe21460b83B431628535EfBb9Cd');
+            window.cajon = new window.web3.eth.Contract(abi, addressContrato);
 
             window.cajon.events.Transfer({}, function(error, event) {
                 console.log(event);
@@ -574,30 +576,30 @@
             return cuentas;
         }
 
-        async function agregarAWhitelist(address, tipoWhitelist) {
-            console.log("in main")
+        async function agregarAWhitelist(address, tipoWhitelist, nombre) {
             var cuentas = await obtenerCuentas()
             if (tipoWhitelist == "productores") {
-                window.cajon.methods.addToWhitelistProductores(address).send({
-                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
+                window.cajon.methods.addToWhitelistProductores(address, nombre).send({
+                    from: web3.utils.toChecksumAddress(addressDuenio)
                 });
             } else if (tipoWhitelist == "distribuidores") {
                 window.cajon.methods.addToWhitelistDistribuidores(address).send({
-                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
+                    from: web3.utils.toChecksumAddress(addressDuenio)
                 });
             } else if (tipoWhitelist == "puntosVenta") {
                 window.cajon.methods.addToWhitelistPuntosVenta(address).send({
-                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
+                    from: web3.utils.toChecksumAddress(addressDuenio)
                 });
             }
         }
 
         // Productor: 0
 
-        async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
+        async function crearCajon(tipoContenido, codigoQR) {
             cuenta = await obtenerCuentas()
             var fecha = Date.now();
-            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor, fecha).send({
+            console.log("in crear cajon")
+            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, fecha).send({
                 from: cuenta[0]
             });
             console.log("ee")
@@ -639,8 +641,8 @@
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-bars"></i>
-          </button>
+                        <i class="fa fa-bars"></i>
+                    </button>
                     <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
@@ -740,10 +742,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <select id="rubro" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
-                                          <option data-display="Select">Rubro</option>
-                                          <option value="productores">Productor</option>
-                                          <option value="distribuidores">Distribuidor</option>
-                                          <option value="puntosVenta">Punto de venta</option>
+                                            <option data-display="Select">Rubro</option>
+                                            <option value="productores">Productor</option>
+                                            <option value="distribuidores">Distribuidor</option>
+                                            <option value="puntosVenta">Punto de venta</option>
                                         </select>
                                         <div class="overlay-arrow">&#9660;</div>
                                         <div class="help-block with-errors"></div>
@@ -899,8 +901,13 @@
                             <hr>
                             <button class="btn hvr-hover" type="submit" id="agregarPuntoCadena">Agregar ubicación</button>
                             <div id="autenticarse" class="col-md-12" style="display: none; margin-top: 15px;">
-                                <p>Ingrese el nombre de su empresa</p>
-                                <input type="text" class="form-control" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
+                                <<<<<<< HEAD <p>Ingrese el nombre de su empresa</p>
+                                    <input type="text" class="form-control" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo"> =======
+                                    <div class="form-group">
+                                        <p>Ingrese el nombre de su empresa</p>
+                                        <input type="text" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
+                                    </div>
+                                    >>>>>>> 216968d11bd507fc3901f1f8f0059365a6782789
                             </div>
                             <div class="alert alert-success" style="display: none;" id="ptoAgregado" role="alert">
                                 Ubicación agregada correctamente. Para ver los cambios vuelva a presionar el botón de la lupa.
@@ -1070,14 +1077,7 @@
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <script>
-        var lastIndex = 0
-
-        function obtenerIndex() {
-            lastIndex = lastIndex + 1
-            return lastIndex
-        }
         document.addEventListener("DOMContentLoaded", async function(event) {
-
             if (document.querySelector("#agregarPuntoCadena")) {
                 document.querySelector("#agregarPuntoCadena").addEventListener("click", async function() {
                     var tokenId = document.getElementById("idToken").value
@@ -1110,7 +1110,7 @@
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
                     var nombre = document.getElementById("nombre").value
-                    await agregarAWhitelist(address, tipoWhitelist)
+                    await agregarAWhitelist(address, tipoWhitelist, nombre)
                 });
             }
 
@@ -1134,18 +1134,24 @@
                     } catch (error) {}
                 });
             }
+
+
             if (document.querySelector("#btnIngresarLote")) {
                 document.querySelector("#btnIngresarLote").addEventListener("click", async function() {
-                    // var id = obtenerIndex()
-                    var id = 22
+                    // Dado que no se recomienda generar numeros randomicos en la Blockchain dado que el 
+                    // código es estático y puede ser fácilmente descifrable, implementamos la randomización 
+                    // desde la dApp. Idealmente para agregar mayor seguridad esto tendría que estar en un 
+                    // oráculo.
+                    var id = Math.random().toString(36).substring(7).charCodeAt(0)
+                    console.log(id);
                     var options = {
                         text: id
                     }
+                    document.getElementById("qrcode").innerHTML = ""
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    var nombre = 'Granja "La Familia"'
-                    await crearCajon(document.getElementById("contenido").value, nombre, id);
-                    console.log("NUEVO CAJÓN: " + document.getElementById("contenido").innerHTML + nombre + id)
+                    //var nombre = 'Granja "La Familia"'
+                    await crearCajon(document.getElementById("contenido").value, id);
                 });
             }
 
