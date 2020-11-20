@@ -872,7 +872,7 @@
                         <div class="card-header">
                             <h2>Trayectoria del lote</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id='tabla_trayectoria'>
                             <div class="media mb-3">
 
                                 <div class="media-body">
@@ -897,15 +897,13 @@
                                 </div>
                             </div>
                             <hr>
-                            <button class="btn hvr-hover" id="agregarPuntoCadena">Agregar ubicación</button>
+                            <button class="btn hvr-hover" type="submit" id="agregarPuntoCadena">Agregar ubicación</button>
                             <div id="autenticarse" class="col-md-12" style="display: none; margin-top: 15px;">
-                                <div class="form-group">
-                                    <p>Ingrese el nombre de su empresa</p>
-                                    <input type="text" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
-                                </div>
+                                <p>Ingrese el nombre de su empresa</p>
+                                <input type="text" class="form-control" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
                             </div>
                             <div class="alert alert-success" style="display: none;" id="ptoAgregado" role="alert">
-                                Ubicación agregada correctamente
+                                Ubicación agregada correctamente. Para ver los cambios vuelva a presionar el botón de la lupa.
                             </div>
                             <div class="alert alert-danger" style="display: none;" id="ptoNoAgregado" role="alert">
                                 Para utilizar esta función es necesario que primero se autentique
@@ -917,7 +915,6 @@
             </div>
         </div>
     </div>
-
     <!-- End Ver Lote -->
 
     <!-- Start Instagram Feed  -->
@@ -1069,7 +1066,6 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.0.0/dist/easy.qrcode.min.js"></script>
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
@@ -1086,18 +1082,19 @@
                 document.querySelector("#agregarPuntoCadena").addEventListener("click", async function() {
                     var tokenId = document.getElementById("idToken").value
                     document.getElementById("autenticarse").style.display = "block";
-                    // var nombre = "Distribuidora S.A."
                     var nombre = document.getElementById("nombreAut").value
                     console.log("TOKEN" + tokenId)
                     console.log("NOMBRE" + nombre)
+
                     if (tokenId != "" && nombre != "") {
-                        await agregarPuntoCadena(tokenId, nombre)
+                        var a = await agregarPuntoCadena(tokenId, nombre)
+                        console.log('AGREGAR' + a)
                         document.getElementById("autenticarse").style.display = "none";
-                        await mostrarInfoCajon()
+
                         jQuery("#ptoAgregado").fadeIn();
                         setTimeout(function() {
                             jQuery("#ptoAgregado").fadeOut();
-                        }, 3500);
+                        }, 6500);
                     } else {
                         jQuery("#ptoNoAgregado").fadeIn();
                         setTimeout(function() {
@@ -1120,13 +1117,27 @@
             if (document.querySelector("#buscarLote")) {
                 console.log("ENTRó")
                 document.querySelector("#buscarLote").addEventListener("click", async function() {
-                    await mostrarInfoCajon();
+                    var tokenId = document.getElementById("idToken").value
+                    datosConFecha = await obtenerCajon(tokenId)
+                    console.log("DATOS CON FECHA", datosConFecha)
+                    datos = datosConFecha[0]
+                    fechas = datosConFecha[1]
+                    document.getElementById("detallesCajon").style.display = "block"
+                    document.getElementById("tipoContenidoCajon").innerHTML = "Contenido del lote: " + datos[1]
+                    try {
+                        for (i = 0; i < 3; i++) {
+                            console.log("puntoCadena" + i + "-" + "nombreComercial")
+                            document.getElementById("puntoCadena" + i + "-" + "nombreComercial").innerHTML = typeof datos[4][i] != 'undefined' ? datos[4][i] : ""
+                            document.getElementById("puntoCadena" + i + "-" + "fecha").innerHTML = typeof fechas[i] != 'undefined' ? fechas[i] : ""
+
+                        }
+                    } catch (error) {}
                 });
             }
             if (document.querySelector("#btnIngresarLote")) {
                 document.querySelector("#btnIngresarLote").addEventListener("click", async function() {
                     // var id = obtenerIndex()
-                    var id = 10
+                    var id = 22
                     var options = {
                         text: id
                     }
@@ -1139,22 +1150,6 @@
             }
 
         })
-
-        async function mostrarInfoCajon() {
-            var tokenId = document.getElementById("idToken").value
-            datosConFecha = await obtenerCajon(tokenId)
-            datos = datosConFecha[0]
-            fechas = datosConFecha[1]
-            document.getElementById("detallesCajon").style.display = "block"
-            document.getElementById("tipoContenidoCajon").innerHTML = "Contenido del lote: " + datos[1]
-            try {
-                for (i = 0; i < 3; i++) {
-                    document.getElementById("puntoCadena" + i + "-" + "nombreComercial").innerHTML = typeof datos[4][i] != 'undefined' ? datos[4][i] : ""
-                    document.getElementById("puntoCadena" + i + "-" + "fecha").innerHTML = typeof fechas[i] != 'undefined' ? fechas[i] : ""
-
-                }
-            } catch (error) {}
-        }
     </script>
 </body>
 
