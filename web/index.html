@@ -598,11 +598,9 @@
         async function crearCajon(tipoContenido, codigoQR) {
             cuenta = await obtenerCuentas()
             var fecha = Date.now();
-            console.log("in crear cajon")
             window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, fecha).send({
                 from: cuenta[0]
             });
-            console.log("ee")
         }
 
         async function obtenerCajon(tokenId) {
@@ -616,7 +614,6 @@
             })
             var fechas = [datos[3].length]
             for (var i = 0; i < datos[3].length; i++) {
-                console.log("in for; ", i)
                 fecha = new Date(parseInt(datos[3][i]))
                 fechas[i] = fecha.toLocaleString('en-GB', {
                     hour12: false
@@ -1083,14 +1080,11 @@
                     var tokenId = document.getElementById("idToken").value
                     document.getElementById("autenticarse").style.display = "block";
                     var nombre = document.getElementById("nombreAut").value
-                    console.log("TOKEN" + tokenId)
-                    console.log("NOMBRE" + nombre)
 
                     if (tokenId != "" && nombre != "") {
-                        var a = await agregarPuntoCadena(tokenId, nombre)
-                        console.log('AGREGAR' + a)
+                        await agregarPuntoCadena(tokenId, nombre)
+                        
                         document.getElementById("autenticarse").style.display = "none";
-
                         jQuery("#ptoAgregado").fadeIn();
                         setTimeout(function() {
                             jQuery("#ptoAgregado").fadeOut();
@@ -1105,8 +1099,7 @@
             }
 
             if (document.querySelector("#registrar")) {
-                console.log("Entro")
-                document.querySelector("#registrar").addEventListener("click", async function() {
+                document.querySelector("#registrar").addEventListener("click", async function () {
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
                     var nombre = document.getElementById("nombre").value
@@ -1115,18 +1108,15 @@
             }
 
             if (document.querySelector("#buscarLote")) {
-                console.log("ENTRó")
                 document.querySelector("#buscarLote").addEventListener("click", async function() {
                     var tokenId = document.getElementById("idToken").value
                     datosConFecha = await obtenerCajon(tokenId)
-                    console.log("DATOS CON FECHA", datosConFecha)
                     datos = datosConFecha[0]
                     fechas = datosConFecha[1]
                     document.getElementById("detallesCajon").style.display = "block"
                     document.getElementById("tipoContenidoCajon").innerHTML = "Contenido del lote: " + datos[1]
                     try {
                         for (i = 0; i < 3; i++) {
-                            console.log("puntoCadena" + i + "-" + "nombreComercial")
                             document.getElementById("puntoCadena" + i + "-" + "nombreComercial").innerHTML = typeof datos[4][i] != 'undefined' ? datos[4][i] : ""
                             document.getElementById("puntoCadena" + i + "-" + "fecha").innerHTML = typeof fechas[i] != 'undefined' ? fechas[i] : ""
 
@@ -1150,7 +1140,7 @@
                     document.getElementById("qrcode").innerHTML = ""
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    //var nombre = 'Granja "La Familia"'
+                    
                     await crearCajon(document.getElementById("contenido").value, id);
                 });
             }
