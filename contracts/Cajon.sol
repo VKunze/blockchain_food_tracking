@@ -14,6 +14,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/math.sol";
 
 contract Cajon is ERC721, Ownable {
+    address duenio = 0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0; 
 
     struct UnidadCajon {
         uint256 id;
@@ -37,8 +38,18 @@ contract Cajon is ERC721, Ownable {
         
     }
 
+    modifier soloDuenio(){
+        require(msg.sender == duenio,"only owner can call this function");
+        _;
+    }
+
     modifier isInWhitelistProductores(){
         require(whitelistProductores[msg.sender]==true, "is not in the whitelistProductores");
+        _;
+    }
+
+    modifier isInWhitelistComerciantes(){
+        require(whitelistDistribuidores[msg.sender]==true || whitelistPuntosVenta[msg.sender]==true || whitelistProductores[msg.sender]==true, "is not in the WhitelistComerciantes");
         _;
     }
 
@@ -52,17 +63,30 @@ contract Cajon is ERC721, Ownable {
         _;
     }
 
-    function crearCajon(address addressProductor, uint256 tokenId, string memory tipoContenido, string memory nombreComercialProductor) isInWhitelistProductores public {
+    function crearCajon(address addressProductor, uint256 tokenId, string memory tipoContenido, string memory nombreComercialProductor, uint256 fecha) isInWhitelistProductores public {
         _mint(addressProductor, tokenId);
         items[tokenId].id = tokenId;
         items[tokenId].tipoContenido = tipoContenido;
         items[tokenId].exists = true;
-        agregarPuntoCadena(tokenId,addressProductor,nombreComercialProductor);
+        agregarPuntoCadena(tokenId,addressProductor,nombreComercialProductor,fecha);
     }
 
-    function obtenerCajon(uint256 tokenId) public view returns(uint256, string memory, puntoCadena[] memory) {
+
+    function obtenerCajon(uint256 tokenId) public view returns(uint256, string memory, address[] memory,
+        uint256[] memory, string[] memory) {
         require(items[tokenId].exists, "the token doesn't exists");
-        return (items[tokenId].id, items[tokenId].tipoContenido, items[tokenId].trayecto);
+
+        address[] memory addrs = new address[](items[tokenId].trayecto.length);
+        uint[] memory fechas = new uint[](items[tokenId].trayecto.length);
+        string[] memory nombres = new string[](items[tokenId].trayecto.length);
+
+        for(uint i=0; i<items[tokenId].trayecto.length; i++){
+            puntoCadena storage ptoCadena = items[tokenId].trayecto[i];
+            addrs[i] = ptoCadena.addressLector;
+            fechas[i] = ptoCadena.fecha;
+            nombres[i] = ptoCadena.nombreComercial;
+        }
+        return (items[tokenId].id, items[tokenId].tipoContenido, addrs, fechas, nombres);
     }
 
     function destruirCajon(uint256 tokenId) isInWhitelistPuntosVenta public {
@@ -74,33 +98,32 @@ contract Cajon is ERC721, Ownable {
         items[tokenId].exists = false;
     }
 
-    function agregarPuntoCadena(uint256 tokenId, address addressLector, string memory nombreComercial) isInWhitelistDistribuidores isInWhitelistPuntosVenta public {
-        uint256 fecha = now;
+    function agregarPuntoCadena(uint256 tokenId, address addressLector, string memory nombreComercial, uint256 fecha) isInWhitelistComerciantes public {
         puntoCadena memory nuevoPuntoCadena = puntoCadena({addressLector: addressLector, fecha: fecha, nombreComercial: nombreComercial});
         items[tokenId].trayecto.push(nuevoPuntoCadena);
     }
 
-    function addToWhitelistProductores(address account) onlyOwner public{
+    function addToWhitelistProductores(address account) soloDuenio public{
         whitelistProductores[account] = true;
     }
 
-    function addToWhitelistPuntosVenta(address account) onlyOwner public{
+    function addToWhitelistPuntosVenta(address account) soloDuenio public{
         whitelistPuntosVenta[account] = true;
     }
     
-    function addToWhitelistDistribuidores(address account) onlyOwner public{
+    function addToWhitelistDistribuidores(address account) soloDuenio public{
         whitelistDistribuidores[account] = true;
     }
 
-     function removeFromWhitelistProductores(address account) onlyOwner public{
+     function removeFromWhitelistProductores(address account) soloDuenio public{
         whitelistProductores[account] = false;
     }
 
-    function removeFromWhitelistPuntosVenta(address account) onlyOwner public{
+    function removeFromWhitelistPuntosVenta(address account) soloDuenio public{
         whitelistPuntosVenta[account] = false;
     }
 
-    function removeFromWhitelistDistribuidores(address account) onlyOwner public{
+    function removeFromWhitelistDistribuidores(address account) soloDuenio public{
         whitelistDistribuidores[account] = false;
     }
     

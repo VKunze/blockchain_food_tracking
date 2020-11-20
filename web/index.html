@@ -415,6 +415,10 @@
                 "internalType": "string",
                 "name": "nombreComercialProductor",
                 "type": "string"
+            }, {
+                "internalType": "uint256",
+                "name": "fecha",
+                "type": "uint256"
             }],
             "name": "crearCajon",
             "outputs": [],
@@ -436,22 +440,17 @@
                 "name": "",
                 "type": "string"
             }, {
-                "components": [{
-                    "internalType": "address",
-                    "name": "addressLector",
-                    "type": "address"
-                }, {
-                    "internalType": "uint256",
-                    "name": "fecha",
-                    "type": "uint256"
-                }, {
-                    "internalType": "string",
-                    "name": "nombreComercial",
-                    "type": "string"
-                }],
-                "internalType": "struct Cajon.puntoCadena[]",
+                "internalType": "address[]",
                 "name": "",
-                "type": "tuple[]"
+                "type": "address[]"
+            }, {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }, {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
             }],
             "stateMutability": "view",
             "type": "function",
@@ -479,6 +478,10 @@
                 "internalType": "string",
                 "name": "nombreComercial",
                 "type": "string"
+            }, {
+                "internalType": "uint256",
+                "name": "fecha",
+                "type": "uint256"
             }],
             "name": "agregarPuntoCadena",
             "outputs": [],
@@ -555,7 +558,7 @@
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
 
-            window.cajon = new window.web3.eth.Contract(abi, '0xE6995C5CE6E679d8D60827460C0cFd25a23F5222');
+            window.cajon = new window.web3.eth.Contract(abi, '0x54d2c4BF6301ACe21460b83B431628535EfBb9Cd');
 
             window.cajon.events.Transfer({}, function(error, event) {
                 console.log(event);
@@ -576,15 +579,15 @@
             var cuentas = await obtenerCuentas()
             if (tipoWhitelist == "productores") {
                 window.cajon.methods.addToWhitelistProductores(address).send({
-                    from: cuentas[0]
+                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
                 });
             } else if (tipoWhitelist == "distribuidores") {
                 window.cajon.methods.addToWhitelistDistribuidores(address).send({
-                    from: cuentas[1]
+                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
                 });
             } else if (tipoWhitelist == "puntosVenta") {
-                window.cajon.methods.isInWhitelistPuntosVenta(address).send({
-                    from: cuentas[3]
+                window.cajon.methods.addToWhitelistPuntosVenta(address).send({
+                    from: web3.utils.toChecksumAddress('0xAECdb05ADC1211Ed022D2A5a648D9a4fd45F40F0')
                 });
             }
         }
@@ -593,20 +596,39 @@
 
         async function crearCajon(tipoContenido, nombreComercialProductor, codigoQR) {
             cuenta = await obtenerCuentas()
-            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor).send({
+            var fecha = Date.now();
+            window.cajon.methods.crearCajon(cuenta[0], codigoQR, tipoContenido, nombreComercialProductor, fecha).send({
                 from: cuenta[0]
             });
             console.log("ee")
         }
 
         async function obtenerCajon(tokenId) {
-            datos = await window.cajon.methods.obtenerCajon(tokenId)
-            return datos
+            datos = await window.cajon.methods.obtenerCajon(tokenId).call(function(err, res) {
+                if (err) {
+                    console.log("An error occured", err)
+                    return
+                }
+                console.log("The results are: ", res)
+                return res
+            })
+            var fechas = [datos[3].length]
+            for (var i = 0; i < datos[3].length; i++) {
+                console.log("in for; ", i)
+                fecha = new Date(parseInt(datos[3][i]))
+                fechas[i] = fecha.toLocaleString('en-GB', {
+                    hour12: false
+                })
+            }
+            return [datos, fechas]
         }
 
         async function agregarPuntoCadena(tokenId, nombreComercial) {
             cuenta = await obtenerCuentas()
-            window.cajon.methods.agregarPuntoCadena(tokenId, cuenta[1], nombreComercial)
+            var fecha = Date.now();
+            window.cajon.methods.agregarPuntoCadena(tokenId, cuenta[0], nombreComercial, fecha).send({
+                from: cuenta[0]
+            })
         }
     </script>
     <!-- Start Main Top -->
@@ -718,11 +740,11 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <select id="rubro" class="selectpicker show-tick form-control dropdown" data-placeholder="Rubro" style="cursor:pointer">
-                      <option data-display="Select">Rubro</option>
-                      <option value="productores">Productor</option>
-                      <option value="distribuidores">Distribuidor</option>
-                      <option value="puntosVenta">Punto de venta</option>
-                    </select>
+                                          <option data-display="Select">Rubro</option>
+                                          <option value="productores">Productor</option>
+                                          <option value="distribuidores">Distribuidor</option>
+                                          <option value="puntosVenta">Punto de venta</option>
+                                        </select>
                                         <div class="overlay-arrow">&#9660;</div>
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -836,11 +858,17 @@
     </div>
 
     <div class="shop-detail-box-main" style="display: none;" id=detallesCajon>
+        <div class="contact-form-right">
+            <h2>VISUALIZAR INFORMACIÓN DEL LOTE</h2>
+            <p>A continuación se le muestra una tabla con el contenido del lote y su trayectoria. También cuenta con la opción de agregar un nuevo punto si tiene los permisos necesarios para hacerlo.</p>
+        </div>
         <div class="container">
             <div class="row">
-                <div class="row my-5">
+                <div class="row my-5" style="width: 100%;">
                     <div class="card card-outline-secondary my-4">
-                        <div id=tipoContenidoCajon></div>
+                        <div class="card-header">
+                            <h2 id=tipoContenidoCajon></h2>
+                        </div>
                         <div class="card-header">
                             <h2>Trayectoria del lote</h2>
                         </div>
@@ -869,7 +897,13 @@
                                 </div>
                             </div>
                             <hr>
-                            <a href="#" class="btn hvr-hover" id="agregarPuntoCadena">Agregar ubicación</a>
+                            <button class="btn hvr-hover" id="agregarPuntoCadena">Agregar ubicación</button>
+                            <div id="autenticarse" class="col-md-12" style="display: none; margin-top: 15px;">
+                                <div class="form-group">
+                                    <p>Ingrese el nombre de su empresa</p>
+                                    <input type="text" id="nombreAut" name="name" placeholder="Razón Social" required data-error="Por favor complete este campo">
+                                </div>
+                            </div>
                             <div class="alert alert-success" style="display: none;" id="ptoAgregado" role="alert">
                                 Ubicación agregada correctamente
                             </div>
@@ -1035,10 +1069,13 @@
     <script src="js/form-validator.min.js"></script>
     <script src="js/contact-form-script.js"></script>
     <script src="js/custom.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/easyqrcodejs@4.0.0/dist/easy.qrcode.min.js"></script>
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <script>
+        var lastIndex = 0
+
         function obtenerIndex() {
             lastIndex = lastIndex + 1
             return lastIndex
@@ -1047,19 +1084,25 @@
 
             if (document.querySelector("#agregarPuntoCadena")) {
                 document.querySelector("#agregarPuntoCadena").addEventListener("click", async function() {
-                    var tokenId = document.getElementById("idToken").innerHTML
+                    var tokenId = document.getElementById("idToken").value
+                    document.getElementById("autenticarse").style.display = "block";
+                    // var nombre = "Distribuidora S.A."
+                    var nombre = document.getElementById("nombreAut").value
+                    console.log("TOKEN" + tokenId)
+                    console.log("NOMBRE" + nombre)
                     if (tokenId != "" && nombre != "") {
-                        console.log("En agregar pto cadena: " + tokenId + nombre)
                         await agregarPuntoCadena(tokenId, nombre)
-                        document.querySelector("#ptoAgregado").fadeIn();
+                        document.getElementById("autenticarse").style.display = "none";
+                        await mostrarInfoCajon()
+                        jQuery("#ptoAgregado").fadeIn();
                         setTimeout(function() {
                             jQuery("#ptoAgregado").fadeOut();
-                        }, 3000);
+                        }, 3500);
                     } else {
-                        document.querySelector("#ptoNoAgregado").fadeIn();
+                        jQuery("#ptoNoAgregado").fadeIn();
                         setTimeout(function() {
                             jQuery("#ptoNoAgregado").fadeOut();
-                        }, 3000);
+                        }, 3500);
                     }
                 });
             }
@@ -1069,43 +1112,49 @@
                 document.querySelector("#registrar").addEventListener("click", async function() {
                     var address = document.getElementById("address").value
                     var tipoWhitelist = document.getElementById("rubro").value
-                    nombre = document.getElementById("nombre").value
+                    var nombre = document.getElementById("nombre").value
                     await agregarAWhitelist(address, tipoWhitelist)
-                        // console.log(await window.cajon.methods.get)
                 });
             }
 
             if (document.querySelector("#buscarLote")) {
                 console.log("ENTRó")
                 document.querySelector("#buscarLote").addEventListener("click", async function() {
-                    console.log("HI")
-                    var tokenId = document.getElementById("idToken").value
-                    datos = await obtenerCajon(tokenId)
-                    document.getElementById("detallesCajon").style.display = "block"
-                    document.getElementById("tipoContenidoCajon").innerHTML = datos[1]
-                    try {
-                        for (i = 0; i < 3; i++) {
-                            document.getElementById("puntoCadena" + i + "-" + "nombreComercial").innerHTML = datos[2][i]["nombreComercial"]
-                            document.getElementById("puntoCadena" + i + "-" + "fecha").innerHTML = datos[2][i]["fecha"]
-
-                        }
-                    } catch (error) {}
+                    await mostrarInfoCajon();
                 });
             }
             if (document.querySelector("#btnIngresarLote")) {
                 document.querySelector("#btnIngresarLote").addEventListener("click", async function() {
-                    var id = obtenerIndex()
+                    // var id = obtenerIndex()
+                    var id = 10
                     var options = {
                         text: id
                     }
                     qrCode = new QRCode(document.getElementById("qrcode"), options);
                     document.getElementById("msj").style.display = "block";
-                    crearCajon(document.getElementById("contenido").innerHTML, nombre, id);
-                    print("NUEVO CAJÓN: " + document.getElementById("contenido").innerHTML + nombre + id)
+                    var nombre = 'Granja "La Familia"'
+                    await crearCajon(document.getElementById("contenido").value, nombre, id);
+                    console.log("NUEVO CAJÓN: " + document.getElementById("contenido").innerHTML + nombre + id)
                 });
             }
 
         })
+
+        async function mostrarInfoCajon() {
+            var tokenId = document.getElementById("idToken").value
+            datosConFecha = await obtenerCajon(tokenId)
+            datos = datosConFecha[0]
+            fechas = datosConFecha[1]
+            document.getElementById("detallesCajon").style.display = "block"
+            document.getElementById("tipoContenidoCajon").innerHTML = "Contenido del lote: " + datos[1]
+            try {
+                for (i = 0; i < 3; i++) {
+                    document.getElementById("puntoCadena" + i + "-" + "nombreComercial").innerHTML = typeof datos[4][i] != 'undefined' ? datos[4][i] : ""
+                    document.getElementById("puntoCadena" + i + "-" + "fecha").innerHTML = typeof fechas[i] != 'undefined' ? fechas[i] : ""
+
+                }
+            } catch (error) {}
+        }
     </script>
 </body>
 
